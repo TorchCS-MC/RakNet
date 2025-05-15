@@ -47,9 +47,7 @@ include(./CmakeIncludes/CmakeMacros.txt)
 FIXLINKOPTIONS()
 FIXCOMPILEOPTIONS()
 
-
 add_subdirectory(Lib)
-
 
 set(RAKNET_COMMON_LIBS RakNetLibStatic)
 

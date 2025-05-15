@@ -66,6 +66,7 @@ UDPForwarder::~UDPForwarder()
 	WSAStartupSingleton::Deref();
 #endif
 }
+
 void UDPForwarder::Startup(void)
 {
 	if (isRunning.GetValue()>0)
@@ -74,8 +75,6 @@ void UDPForwarder::Startup(void)
 	isRunning.Increment();
 
 	int errorCode;
-
-
 
 	errorCode = RakNet::RakThread::Create(UpdateUDPForwarderGlobal, this);
 
