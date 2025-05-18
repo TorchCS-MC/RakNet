@@ -1,56 +1,159 @@
-cmake_minimum_required(VERSION 2.6)
+cmake_minimum_required(VERSION 3.16)
 
-project(RakNet)
+project(torchcs-raknet VERSION 4.1.0 LANGUAGES C CXX)
 
-if( NOT APPLE )
-# check 64 bit
-if( CMAKE_SIZEOF_VOID_P MATCHES "4" )
-  set( HAVE_64_BIT 0 )
-else(  CMAKE_SIZEOF_VOID_P MATCHES "4")
-  set( HAVE_64_BIT 1 )
-endif(  CMAKE_SIZEOF_VOID_P MATCHES "4")
-endif( NOT APPLE )
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
 
-IF (WIN32 AND NOT UNIX)
-	set (PROGRAMFILESX86 $ENV{PROGRAMFILES})
-	string(REPLACE "\\" "/" PROGRAMFILESX86 ${PROGRAMFILESX86})
-ENDIF(WIN32 AND NOT UNIX)
+option(RAKNET_ENABLE_SAMPLES "Build example programs" ON)
+option(RAKNET_ENABLE_DLL "Build DLL instead of static library" OFF)
 
-IF (WIN32 AND NOT UNIX)
-	set(RAKNET_LIBRARY_LIBS ws2_32.lib)
-ELSE(WIN32 AND NOT UNIX)
-	set(RAKNET_LIBRARY_LIBS pthread)
-ENDIF(WIN32 AND NOT UNIX)
+set(RAKNET_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(RAKNET_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/includes/raknet)
 
-
-# Options
-option( RAKNET_ENABLE_SAMPLES 	"Generate RakNet sample projects if true." 		TRUE  )
-option( RAKNET_ENABLE_DLL		"Generate the DLL project if true." 			TRUE )
-option( RAKNET_ENABLE_STATIC	"Generate the static library project if true." 	TRUE )
-option( RAKNET_GENERATE_INCLUDE_ONLY_DIR "Setup a include/RakNet/ directory in which all the headers are copied." FALSE )
-
-set( RAKNETHEADERFILES ${RakNet_SOURCE_DIR}/Source ) #This name doesn't follow CMake conventions but for retro compatibility I'll let it there.
-
-if( RAKNET_GENERATE_INCLUDE_ONLY_DIR )
-	set( RAKNET_INCLUDE_ONLY_DIR ${RakNet_SOURCE_DIR}/include ) # this will be visible by client code
-	set( RAKNET_NAMED_INCLUDE_ONLY_DIR ${RAKNET_INCLUDE_ONLY_DIR}/RakNet )
-	message( STATUS "Setting up the ${RAKNET_NAMED_INCLUDE_ONLY_DIR} directory..." )
-	# Now setup the include/RakNet/*.h files.
-	file( MAKE_DIRECTORY ${RAKNET_NAMED_INCLUDE_ONLY_DIR} )
-	file( COPY ${RAKNETHEADERFILES}/ DESTINATION ${RAKNET_NAMED_INCLUDE_ONLY_DIR} FILES_MATCHING PATTERN "*.h"  )
-	message( STATUS "DONE: Setting up the ${RAKNET_NAMED_INCLUDE_ONLY_DIR} directory." )
+if(WIN32)
+    set(RAKNET_SYSTEM_LIBS ws2_32)
+else()
+    set(RAKNET_SYSTEM_LIBS pthread)
 endif()
 
-set( RAKNET_INCLUDE_DIRS ${RAKNETHEADERFILES} ${RAKNET_INCLUDE_ONLY_DIR} PARENT_SCOPE ) # Visible from outside
+set(RAKNET_SOURCES
+    ${RAKNET_SOURCE_DIR}/Base64Encoder.cpp
+    ${RAKNET_SOURCE_DIR}/BitStream.cpp
+    ${RAKNET_SOURCE_DIR}/CCRakNetSlidingWindow.cpp
+    ${RAKNET_SOURCE_DIR}/CCRakNetUDT.cpp
+    ${RAKNET_SOURCE_DIR}/CheckSum.cpp
+    ${RAKNET_SOURCE_DIR}/CloudClient.cpp
+    ${RAKNET_SOURCE_DIR}/CloudCommon.cpp
+    ${RAKNET_SOURCE_DIR}/CloudServer.cpp
+    ${RAKNET_SOURCE_DIR}/CommandParserInterface.cpp
+    ${RAKNET_SOURCE_DIR}/ConnectionGraph2.cpp
+    ${RAKNET_SOURCE_DIR}/ConsoleServer.cpp
+    ${RAKNET_SOURCE_DIR}/DR_SHA1.cpp
+    ${RAKNET_SOURCE_DIR}/DS_BytePool.cpp
+    ${RAKNET_SOURCE_DIR}/DS_ByteQueue.cpp
+    ${RAKNET_SOURCE_DIR}/DS_HuffmanEncodingTree.cpp
+    ${RAKNET_SOURCE_DIR}/DS_Table.cpp
+    ${RAKNET_SOURCE_DIR}/DataCompressor.cpp
+    ${RAKNET_SOURCE_DIR}/DirectoryDeltaTransfer.cpp
+    ${RAKNET_SOURCE_DIR}/DynDNS.cpp
+    ${RAKNET_SOURCE_DIR}/EmailSender.cpp
+    ${RAKNET_SOURCE_DIR}/EpochTimeToString.cpp
+    ${RAKNET_SOURCE_DIR}/FileList.cpp
+    ${RAKNET_SOURCE_DIR}/FileListTransfer.cpp
+    ${RAKNET_SOURCE_DIR}/FileOperations.cpp
+    ${RAKNET_SOURCE_DIR}/FormatString.cpp
+    ${RAKNET_SOURCE_DIR}/FullyConnectedMesh2.cpp
+    ${RAKNET_SOURCE_DIR}/GetTime.cpp
+    ${RAKNET_SOURCE_DIR}/Getche.cpp
+    ${RAKNET_SOURCE_DIR}/Gets.cpp
+    ${RAKNET_SOURCE_DIR}/GridSectorizer.cpp
+    ${RAKNET_SOURCE_DIR}/HTTPConnection.cpp
+    ${RAKNET_SOURCE_DIR}/HTTPConnection2.cpp
+    ${RAKNET_SOURCE_DIR}/IncrementalReadInterface.cpp
+    ${RAKNET_SOURCE_DIR}/Itoa.cpp
+    ${RAKNET_SOURCE_DIR}/LinuxStrings.cpp
+    ${RAKNET_SOURCE_DIR}/LocklessTypes.cpp
+    ${RAKNET_SOURCE_DIR}/LogCommandParser.cpp
+    ${RAKNET_SOURCE_DIR}/MessageFilter.cpp
+    ${RAKNET_SOURCE_DIR}/NatPunchthroughClient.cpp
+    ${RAKNET_SOURCE_DIR}/NatPunchthroughServer.cpp
+    ${RAKNET_SOURCE_DIR}/NatTypeDetectionClient.cpp
+    ${RAKNET_SOURCE_DIR}/NatTypeDetectionCommon.cpp
+    ${RAKNET_SOURCE_DIR}/NatTypeDetectionServer.cpp
+    ${RAKNET_SOURCE_DIR}/NetworkIDManager.cpp
+    ${RAKNET_SOURCE_DIR}/NetworkIDObject.cpp
+    ${RAKNET_SOURCE_DIR}/PS4Includes.cpp
+    ${RAKNET_SOURCE_DIR}/PacketConsoleLogger.cpp
+    ${RAKNET_SOURCE_DIR}/PacketFileLogger.cpp
+    ${RAKNET_SOURCE_DIR}/PacketLogger.cpp
+    ${RAKNET_SOURCE_DIR}/PacketOutputWindowLogger.cpp
+    ${RAKNET_SOURCE_DIR}/PacketizedTCP.cpp
+    ${RAKNET_SOURCE_DIR}/PluginInterface2.cpp
+    ${RAKNET_SOURCE_DIR}/RPC4Plugin.cpp
+    ${RAKNET_SOURCE_DIR}/Rackspace.cpp
+    ${RAKNET_SOURCE_DIR}/RakMemoryOverride.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetCommandParser.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_360_720.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_Berkley.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_Berkley_NativeClient.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_NativeClient.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_PS3_PS4.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_PS4.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_Vita.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_WindowsStore8.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_Windows_Linux.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetSocket2_Windows_Linux_360.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetStatistics.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetTransport2.cpp
+    ${RAKNET_SOURCE_DIR}/RakNetTypes.cpp
+    ${RAKNET_SOURCE_DIR}/RakPeer.cpp
+    ${RAKNET_SOURCE_DIR}/RakSleep.cpp
+    ${RAKNET_SOURCE_DIR}/RakString.cpp
+    ${RAKNET_SOURCE_DIR}/RakThread.cpp
+    ${RAKNET_SOURCE_DIR}/RakWString.cpp
+    ${RAKNET_SOURCE_DIR}/Rand.cpp
+    ${RAKNET_SOURCE_DIR}/RandSync.cpp
+    ${RAKNET_SOURCE_DIR}/ReadyEvent.cpp
+    ${RAKNET_SOURCE_DIR}/RelayPlugin.cpp
+    ${RAKNET_SOURCE_DIR}/ReliabilityLayer.cpp
+    ${RAKNET_SOURCE_DIR}/ReplicaManager3.cpp
+    ${RAKNET_SOURCE_DIR}/Router2.cpp
+    ${RAKNET_SOURCE_DIR}/SecureHandshake.cpp
+    ${RAKNET_SOURCE_DIR}/SendToThread.cpp
+    ${RAKNET_SOURCE_DIR}/SignaledEvent.cpp
+    ${RAKNET_SOURCE_DIR}/SimpleMutex.cpp
+    ${RAKNET_SOURCE_DIR}/SocketLayer.cpp
+    ${RAKNET_SOURCE_DIR}/StatisticsHistory.cpp
+    ${RAKNET_SOURCE_DIR}/StringCompressor.cpp
+    ${RAKNET_SOURCE_DIR}/StringTable.cpp
+    ${RAKNET_SOURCE_DIR}/SuperFastHash.cpp
+    ${RAKNET_SOURCE_DIR}/TCPInterface.cpp
+    ${RAKNET_SOURCE_DIR}/TableSerializer.cpp
+    ${RAKNET_SOURCE_DIR}/TeamBalancer.cpp
+    ${RAKNET_SOURCE_DIR}/TeamManager.cpp
+    ${RAKNET_SOURCE_DIR}/TelnetTransport.cpp
+    ${RAKNET_SOURCE_DIR}/ThreadsafePacketLogger.cpp
+    ${RAKNET_SOURCE_DIR}/TwoWayAuthentication.cpp
+    ${RAKNET_SOURCE_DIR}/UDPForwarder.cpp
+    ${RAKNET_SOURCE_DIR}/UDPProxyClient.cpp
+    ${RAKNET_SOURCE_DIR}/UDPProxyCoordinator.cpp
+    ${RAKNET_SOURCE_DIR}/UDPProxyServer.cpp
+    ${RAKNET_SOURCE_DIR}/VariableDeltaSerializer.cpp
+    ${RAKNET_SOURCE_DIR}/VariableListDeltaTracker.cpp
+    ${RAKNET_SOURCE_DIR}/VariadicSQLParser.cpp
+    ${RAKNET_SOURCE_DIR}/VitaIncludes.cpp
+    ${RAKNET_SOURCE_DIR}/WSAStartupSingleton.cpp
+    ${RAKNET_SOURCE_DIR}/_FindFirst.cpp
+    ${RAKNET_SOURCE_DIR}/gettimeofday.cpp
+)
 
-include(./CmakeIncludes/CmakeMacros.txt)
-FIXLINKOPTIONS()
-FIXCOMPILEOPTIONS()
+if(RAKNET_ENABLE_DLL)
+    add_library(torchcs_raknet SHARED ${RAKNET_SOURCES})
+    target_compile_definitions(torchcs_raknet PRIVATE _RAKNET_DLL)
+else()
+    add_library(torchcs_raknet STATIC ${RAKNET_SOURCES})
+    target_compile_definitions(torchcs_raknet PRIVATE _RAKNET_LIB)
+endif()
 
-add_subdirectory(Lib)
+target_include_directories(torchcs_raknet PUBLIC
+    ${RAKNET_INCLUDE_DIR}
+)
 
-set(RAKNET_COMMON_LIBS RakNetLibStatic)
+if(WIN32)
+    target_compile_definitions(torchcs_raknet PRIVATE
+        WIN32
+        _CRT_SECURE_NO_DEPRECATE
+        _CRT_NONSTDC_NO_DEPRECATE
+    )
+    target_compile_options(torchcs_raknet PRIVATE /W3 /GR- /GS-)
+endif()
 
-if( RAKNET_GENERATE_SAMPLES )
-	add_subdirectory(Samples)
+target_link_libraries(torchcs_raknet PRIVATE ${RAKNET_SYSTEM_LIBS})
+
+if(RAKNET_ENABLE_SAMPLES AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/samples/CMakeLists.txt")
+    add_subdirectory(samples)
 endif()
