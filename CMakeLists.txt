@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(RAKNET_ENABLE_SAMPLES "Build example programs" ON)
+option(RAKNET_ENABLE_SAMPLES "Build example programs" OFF)
 option(RAKNET_ENABLE_DLL "Build DLL instead of static library" OFF)
 
 set(RAKNET_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
