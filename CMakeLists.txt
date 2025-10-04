@@ -145,7 +145,14 @@ endif()
 
 add_library(torchcs::RakNet ALIAS torchcs_raknet)
 
-target_include_directories(torchcs_raknet PUBLIC include)
+target_include_directories(torchcs_raknet
+  PUBLIC
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DependentExtensions>
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+    $<INSTALL_INTERFACE:include>
+)
 
 if (MSVC)
     target_compile_definitions(torchcs_raknet PRIVATE WIN32 _CRT_SECURE_NO_DEPRECATE _CRT_NONSTDC_NO_DEPRECATE WIN32_LEAN_AND_MEAN)
