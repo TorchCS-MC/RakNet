@@ -8,18 +8,18 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_NatTypeDetectionClient==1
 
-#include "NatTypeDetectionClient.h"
-#include "RakNetSmartPtr.h"
-#include "BitStream.h"
-#include "SocketIncludes.h"
-#include "RakString.h"
-#include "RakPeerInterface.h"
-#include "MessageIdentifiers.h"
-#include "SocketLayer.h"
-#include "SocketDefines.h"
+#include "RakNet/NatTypeDetectionClient.h"
+#include "RakNet/RakNetSmartPtr.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/SocketIncludes.h"
+#include "RakNet/RakString.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/SocketLayer.h"
+#include "RakNet/SocketDefines.h"
 
 using namespace RakNet;
 

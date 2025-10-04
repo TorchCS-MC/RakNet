@@ -8,7 +8,7 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_TCPInterface==1
 
 /// \file
@@ -17,7 +17,7 @@
 
 
 
-#include "TCPInterface.h"
+#include "RakNet/TCPInterface.h"
 #ifdef _WIN32
 	#if !defined (WINDOWS_STORE_RT)
 		typedef int socklen_t;
@@ -30,15 +30,15 @@
 #include <pthread.h>
 #endif
 #include <string.h>
-#include "RakAssert.h"
+#include "RakNet/RakAssert.h"
 #include <stdio.h>
-#include "RakAssert.h"
-#include "RakSleep.h"
-#include "StringCompressor.h"
-#include "StringTable.h"
-#include "Itoa.h"
-#include "SocketLayer.h"
-#include "SocketDefines.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakSleep.h"
+#include "RakNet/StringCompressor.h"
+#include "RakNet/StringTable.h"
+#include "RakNet/Itoa.h"
+#include "RakNet/SocketLayer.h"
+#include "RakNet/SocketDefines.h"
 #if (defined(__GNUC__)  || defined(__GCCXML__)) && !defined(__WIN32__)
 #include <netdb.h>
 #endif
@@ -47,7 +47,7 @@
 #endif
 
 #ifdef _WIN32
-#include "WSAStartupSingleton.h"
+#include "RakNet/WSAStartupSingleton.h"
 #endif
 namespace RakNet
 {
@@ -1031,7 +1031,7 @@ RAK_THREAD_DECLARATION(RakNet::UpdateTCPInterfaceLoop)
 				sts->remoteClients[i].isActiveMutex.Lock();
 				if (sts->remoteClients[i].isActive)
 				{
-					// calling FD_ISSET with -1 as socket (that’s what 0 is set to) produces a bus error under Linux 64-Bit
+					// calling FD_ISSET with -1 as socket (thatï¿½s what 0 is set to) produces a bus error under Linux 64-Bit
 					__TCPSOCKET__ socketCopy = sts->remoteClients[i].socket;
 					if (socketCopy != 0)
 					{
@@ -1133,7 +1133,7 @@ RAK_THREAD_DECLARATION(RakNet::UpdateTCPInterfaceLoop)
 						i++;
 						continue;
 					}
-					// calling FD_ISSET with -1 as socket (that’s what 0 is set to) produces a bus error under Linux 64-Bit
+					// calling FD_ISSET with -1 as socket (thatï¿½s what 0 is set to) produces a bus error under Linux 64-Bit
 					__TCPSOCKET__ socketCopy = sts->remoteClients[i].socket;
 					if (socketCopy == 0)
 					{

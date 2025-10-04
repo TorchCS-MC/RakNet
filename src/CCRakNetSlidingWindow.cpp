@@ -8,7 +8,7 @@
  *
  */
 
-#include "CCRakNetSlidingWindow.h"
+#include "RakNet/CCRakNetSlidingWindow.h"
 
 #if USE_SLIDING_WINDOW_CONGESTION_CONTROL==1
 
@@ -20,12 +20,12 @@ static const CCTimeType SYN=10;
 static const CCTimeType SYN=10000;
 #endif
 
-#include "MTUSize.h"
+#include "RakNet/MTUSize.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
-#include "RakAssert.h"
-#include "RakAlloca.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakAlloca.h"
 
 using namespace RakNet;
 

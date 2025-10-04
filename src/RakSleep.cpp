@@ -9,7 +9,7 @@
  */
 
 #if   defined(_WIN32)
-#include "WindowsIncludes.h" // Sleep
+#include "RakNet/WindowsIncludes.h" // Sleep
 
 
 
@@ -25,11 +25,11 @@ pthread_mutex_t fakeMutex = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t fakeCond = PTHREAD_COND_INITIALIZER;
 #endif
 
-#include "RakSleep.h"
+#include "RakNet/RakSleep.h"
 
 
 #if defined(WINDOWS_PHONE_8) || defined(WINDOWS_STORE_RT)
-#include "ThreadEmulation.h"
+#include "RakNet/ThreadEmulation.h"
 using namespace ThreadEmulation;
 #endif
 

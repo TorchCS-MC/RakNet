@@ -8,14 +8,14 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_TeamBalancer==1
 
-#include "TeamBalancer.h"
-#include "BitStream.h"
-#include "MessageIdentifiers.h"
-#include "RakPeerInterface.h"
-#include "Rand.h"
+#include "RakNet/TeamBalancer.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/Rand.h"
 
 using namespace RakNet;
 

@@ -9,10 +9,10 @@
  */
 
 
-#include "PluginInterface2.h"
-#include "PacketizedTCP.h"
-#include "RakPeerInterface.h"
-#include "BitStream.h"
+#include "RakNet/PluginInterface2.h"
+#include "RakNet/PacketizedTCP.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/BitStream.h"
 
 using namespace RakNet;
 

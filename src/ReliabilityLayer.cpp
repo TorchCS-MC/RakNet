@@ -13,15 +13,15 @@
 
 
 
-#include "ReliabilityLayer.h"
-#include "GetTime.h"
-#include "SocketLayer.h"
-#include "PluginInterface2.h"
-#include "RakAssert.h"
-#include "Rand.h"
-#include "MessageIdentifiers.h"
+#include "RakNet/ReliabilityLayer.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/SocketLayer.h"
+#include "RakNet/PluginInterface2.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/Rand.h"
+#include "RakNet/MessageIdentifiers.h"
 #ifdef USE_THREADED_SEND
-#include "SendToThread.h"
+#include "RakNet/SendToThread.h"
 #endif
 #include <math.h>
 
@@ -233,7 +233,7 @@ struct DatagramHeaderFormat
 #ifdef _WIN32
 //#define _DEBUG_LOGGER
 #ifdef _DEBUG_LOGGER
-#include "WindowsIncludes.h"
+#include "RakNet/WindowsIncludes.h"
 #endif
 #endif
 

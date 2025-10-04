@@ -12,13 +12,13 @@
 ///
 
 
-#include "NetworkIDManager.h"
-#include "NetworkIDObject.h"
-#include "RakAssert.h"
-#include "GetTime.h"
-#include "RakSleep.h"
-#include "SuperFastHash.h"
-#include "RakPeerInterface.h"
+#include "RakNet/NetworkIDManager.h"
+#include "RakNet/NetworkIDObject.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/RakSleep.h"
+#include "RakNet/SuperFastHash.h"
+#include "RakNet/RakPeerInterface.h"
 
 using namespace RakNet;
 

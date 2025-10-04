@@ -8,13 +8,13 @@
  *
  */
 
-#include "NatTypeDetectionCommon.h"
+#include "RakNet/NatTypeDetectionCommon.h"
 
 #if _RAKNET_SUPPORT_NatTypeDetectionServer==1 || _RAKNET_SUPPORT_NatTypeDetectionClient==1
 
-#include "SocketLayer.h"
-#include "SocketIncludes.h"
-#include "SocketDefines.h"
+#include "RakNet/SocketLayer.h"
+#include "RakNet/SocketIncludes.h"
+#include "RakNet/SocketDefines.h"
 
 using namespace RakNet;
 

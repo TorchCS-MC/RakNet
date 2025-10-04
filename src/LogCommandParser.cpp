@@ -8,11 +8,11 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_LogCommandParser==1
 
-#include "LogCommandParser.h"
-#include "TransportInterface.h"
+#include "RakNet/LogCommandParser.h"
+#include "RakNet/TransportInterface.h"
 
 #include <memory.h>
 
@@ -20,7 +20,7 @@
 #include <string.h>
 #include <stdarg.h>
 
-#include "LinuxStrings.h"
+#include "RakNet/LinuxStrings.h"
 
 #ifdef _MSC_VER
 #pragma warning( push )

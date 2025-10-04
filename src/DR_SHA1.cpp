@@ -6,10 +6,10 @@
   See header file for version history and test vectors.
 */
 
-// If compiling with MFC, you might want to add #include "StdAfx.h"
+// If compiling with MFC, you might want to add #include "RakNet/StdAfx.h"
 
 #define _CRT_SECURE_NO_WARNINGS
-#include "DR_SHA1.h"
+#include "RakNet/DR_SHA1.h"
 #include <stdlib.h>
 
 #define SHA1_MAX_FILE_BUFFER (32 * 20 * 820)

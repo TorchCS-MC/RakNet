@@ -8,13 +8,13 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_ConnectionGraph2==1
 
-#include "ConnectionGraph2.h"
-#include "RakPeerInterface.h"
-#include "MessageIdentifiers.h"
-#include "BitStream.h"
+#include "RakNet/ConnectionGraph2.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/BitStream.h"
 
 using namespace RakNet;
 

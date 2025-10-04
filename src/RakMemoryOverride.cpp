@@ -8,12 +8,12 @@
  *
  */
 
-#include "RakMemoryOverride.h"
-#include "RakAssert.h"
+#include "RakNet/RakMemoryOverride.h"
+#include "RakNet/RakAssert.h"
 #include <stdlib.h>
 
 #ifdef _RAKNET_SUPPORT_DL_MALLOC
-#include "rdlmalloc.h"
+#include "RakNet/rdlmalloc.h"
 #endif
 
 

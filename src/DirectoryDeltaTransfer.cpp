@@ -8,19 +8,19 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_DirectoryDeltaTransfer==1 && _RAKNET_SUPPORT_FileOperations==1
 
-#include "DirectoryDeltaTransfer.h"
-#include "FileList.h"
-#include "StringCompressor.h"
-#include "RakPeerInterface.h"
-#include "FileListTransfer.h"
-#include "FileListTransferCBInterface.h"
-#include "BitStream.h"
-#include "MessageIdentifiers.h"
-#include "FileOperations.h"
-#include "IncrementalReadInterface.h"
+#include "RakNet/DirectoryDeltaTransfer.h"
+#include "RakNet/FileList.h"
+#include "RakNet/StringCompressor.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/FileListTransfer.h"
+#include "RakNet/FileListTransferCBInterface.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/FileOperations.h"
+#include "RakNet/IncrementalReadInterface.h"
 
 using namespace RakNet;
 

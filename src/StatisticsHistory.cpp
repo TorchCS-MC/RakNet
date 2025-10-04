@@ -8,13 +8,13 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_StatisticsHistory==1
 
-#include "StatisticsHistory.h"
-#include "GetTime.h"
-#include "RakNetStatistics.h"
-#include "RakPeerInterface.h"
+#include "RakNet/StatisticsHistory.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/RakNetStatistics.h"
+#include "RakNet/RakPeerInterface.h"
 
 using namespace RakNet;
 

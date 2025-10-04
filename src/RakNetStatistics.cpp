@@ -13,10 +13,10 @@
 
 
 
-#include "RakNetStatistics.h"
+#include "RakNet/RakNetStatistics.h"
 #include <stdio.h> // sprintf
-#include "GetTime.h"
-#include "RakString.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/RakString.h"
 
 using namespace RakNet;
 

@@ -8,14 +8,14 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_DynDNS==1 && _RAKNET_SUPPORT_TCPInterface==1
 
-#include "TCPInterface.h"
-#include "RakNetSocket2.h"
-#include "DynDNS.h"
-#include "GetTime.h"
-#include "Base64Encoder.h"
+#include "RakNet/TCPInterface.h"
+#include "RakNet/RakNetSocket2.h"
+#include "RakNet/DynDNS.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/Base64Encoder.h"
 
 using namespace RakNet;
 

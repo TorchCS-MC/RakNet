@@ -13,8 +13,8 @@
 
 
 
-#include "SimpleMutex.h"
-#include "RakAssert.h"
+#include "RakNet/SimpleMutex.h"
+#include "RakNet/RakAssert.h"
 
 using namespace RakNet;
 

@@ -8,17 +8,17 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_MessageFilter==1
 
-#include "MessageFilter.h"
-#include "RakAssert.h"
-#include "GetTime.h"
-#include "MessageIdentifiers.h"
-#include "RakAssert.h"
-#include "RakPeerInterface.h"
-#include "PacketizedTCP.h"
-#include "BitStream.h"
+#include "RakNet/MessageFilter.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/PacketizedTCP.h"
+#include "RakNet/BitStream.h"
 
 #ifdef _MSC_VER
 #pragma warning( push )

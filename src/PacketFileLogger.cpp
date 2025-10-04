@@ -8,10 +8,10 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_PacketLogger==1
-#include "PacketFileLogger.h"
-#include "GetTime.h"
+#include "RakNet/PacketFileLogger.h"
+#include "RakNet/GetTime.h"
 
 using namespace RakNet;
 

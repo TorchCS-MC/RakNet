@@ -8,11 +8,11 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_CloudClient==1 || _RAKNET_SUPPORT_CloudServer==1
 
-#include "CloudCommon.h"
-#include "BitStream.h"
+#include "RakNet/CloudCommon.h"
+#include "RakNet/BitStream.h"
 
 using namespace RakNet;
 

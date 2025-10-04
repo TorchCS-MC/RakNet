@@ -8,8 +8,8 @@
  *
  */
 
-#include "RakAssert.h"
-#include "GridSectorizer.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/GridSectorizer.h"
 //#include <stdlib.h>
 #include <math.h>
 

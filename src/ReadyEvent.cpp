@@ -8,14 +8,14 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_ReadyEvent==1
 
-#include "ReadyEvent.h"
-#include "RakPeerInterface.h"
-#include "BitStream.h"
-#include "MessageIdentifiers.h"
-#include "RakAssert.h"
+#include "RakNet/ReadyEvent.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/RakAssert.h"
 
 #ifdef _MSC_VER
 #pragma warning( push )

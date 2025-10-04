@@ -8,7 +8,7 @@
  *
  */
 
-#include "WSAStartupSingleton.h"
+#include "RakNet/WSAStartupSingleton.h"
 
 
 
@@ -23,7 +23,7 @@
 
 
 #endif
-#include "RakNetDefines.h"
+#include "RakNet/RakNetDefines.h"
 #include <stdio.h>
 
 int WSAStartupSingleton::refCount=0;

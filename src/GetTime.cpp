@@ -13,7 +13,7 @@
 
 
 #if defined(_WIN32)
-#include "WindowsIncludes.h"
+#include "RakNet/WindowsIncludes.h"
 
  #if !defined(WINDOWS_PHONE_8)
 		// To call timeGetTime
@@ -23,7 +23,7 @@
 
 #endif
 
-#include "GetTime.h"
+#include "RakNet/GetTime.h"
 
 
 
@@ -50,7 +50,7 @@ RakNet::TimeUS initialTime;
 static bool initialized=false;
 
 #if defined(GET_TIME_SPIKE_LIMIT) && GET_TIME_SPIKE_LIMIT>0
-#include "SimpleMutex.h"
+#include "RakNet/SimpleMutex.h"
 RakNet::TimeUS lastNormalizedReturnedValue=0;
 RakNet::TimeUS lastNormalizedInputValue=0;
 /// This constraints timer forward jumps to 1 second, and does not let it jump backwards

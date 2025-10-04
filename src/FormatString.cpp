@@ -8,11 +8,11 @@
  *
  */
 
-#include "FormatString.h"
+#include "RakNet/FormatString.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdarg.h>
-#include "LinuxStrings.h"
+#include "RakNet/LinuxStrings.h"
 
 char * FormatString(const char *format, ...)
 {

@@ -8,16 +8,16 @@
  *
  */
 
-#include "SendToThread.h"
+#include "RakNet/SendToThread.h"
 #ifdef USE_THREADED_SEND
-#include "RakThread.h"
-#include "InternalPacket.h"
-#include "GetTime.h"
+#include "RakNet/RakThread.h"
+#include "RakNet/InternalPacket.h"
+#include "RakNet/GetTime.h"
 
 #if USE_SLIDING_WINDOW_CONGESTION_CONTROL!=1
-#include "CCRakNetUDT.h"
+#include "RakNet/CCRakNetUDT.h"
 #else
-#include "CCRakNetSlidingWindow.h"
+#include "RakNet/CCRakNetSlidingWindow.h"
 #endif
 
 using namespace RakNet;

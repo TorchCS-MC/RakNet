@@ -8,12 +8,12 @@
  *
  */
 
-#include "StringTable.h"
+#include "RakNet/StringTable.h"
 #include <string.h>
-#include "RakAssert.h"
+#include "RakNet/RakAssert.h"
 #include <stdio.h>
-#include "BitStream.h"
-#include "StringCompressor.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/StringCompressor.h"
 using namespace RakNet;
 
 StringTable* StringTable::instance=0;

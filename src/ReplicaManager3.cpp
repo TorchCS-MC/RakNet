@@ -8,14 +8,14 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_ReplicaManager3==1
 
-#include "ReplicaManager3.h"
-#include "GetTime.h"
-#include "MessageIdentifiers.h"
-#include "RakPeerInterface.h"
-#include "NetworkIDManager.h"
+#include "RakNet/ReplicaManager3.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/NetworkIDManager.h"
 
 using namespace RakNet;
 

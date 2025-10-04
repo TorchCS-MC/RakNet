@@ -14,21 +14,21 @@
 
 
 #if defined(_MSC_VER) && _MSC_VER < 1299 // VC6 doesn't support template specialization
-#include "BitStream_NoTemplate.cpp"
+#include "RakNet/BitStream_NoTemplate.cpp"
 #else
 
-#include "BitStream.h"
+#include "RakNet/BitStream.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 
-#include "SocketIncludes.h"
-#include "RakNetDefines.h"
+#include "RakNet/SocketIncludes.h"
+#include "RakNet/RakNetDefines.h"
 
 
 
 #if   defined(_WIN32)
-#include "WindowsIncludes.h"
+#include "RakNet/WindowsIncludes.h"
 #include <memory.h>
 #include <cmath>
 #include <float.h>

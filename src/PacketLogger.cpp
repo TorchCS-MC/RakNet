@@ -8,24 +8,24 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_PacketLogger==1
 
-#include "PacketLogger.h"
-#include "BitStream.h"
-#include "DS_List.h"
-#include "InternalPacket.h"
-#include "RakPeerInterface.h"
-#include "MessageIdentifiers.h"
-#include "StringCompressor.h"
-#include "GetTime.h"
+#include "RakNet/PacketLogger.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/DS_List.h"
+#include "RakNet/InternalPacket.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/StringCompressor.h"
+#include "RakNet/GetTime.h"
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "Itoa.h"
+#include "RakNet/Itoa.h"
 #include <time.h>
-#include "SocketIncludes.h"
-#include "gettimeofday.h"
+#include "RakNet/SocketIncludes.h"
+#include "RakNet/gettimeofday.h"
 
 #ifdef _MSC_VER
 #pragma warning( push )

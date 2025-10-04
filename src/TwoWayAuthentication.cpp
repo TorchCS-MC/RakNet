@@ -8,15 +8,15 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_TwoWayAuthentication==1
 
-#include "TwoWayAuthentication.h"
-#include "Rand.h"
-#include "GetTime.h"
-#include "MessageIdentifiers.h"
-#include "BitStream.h"
-#include "RakPeerInterface.h"
+#include "RakNet/TwoWayAuthentication.h"
+#include "RakNet/Rand.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/RakPeerInterface.h"
 
 #if LIBCAT_SECURITY==1
 static const int HASH_BITS = 256;

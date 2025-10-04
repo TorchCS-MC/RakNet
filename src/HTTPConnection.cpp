@@ -12,14 +12,14 @@
 /// \brief Contains HTTPConnection, used to communicate with web servers
 ///
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_HTTPConnection==1 && _RAKNET_SUPPORT_TCPInterface==1
 
-#include "TCPInterface.h"
-#include "HTTPConnection.h"
-#include "RakSleep.h"
-#include "RakString.h"
-#include "RakAssert.h"
+#include "RakNet/TCPInterface.h"
+#include "RakNet/HTTPConnection.h"
+#include "RakNet/RakSleep.h"
+#include "RakNet/RakString.h"
+#include "RakNet/RakAssert.h"
 #include <string.h>
 #include <stdlib.h>
 #include <stdio.h>

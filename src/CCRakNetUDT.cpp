@@ -8,18 +8,18 @@
  *
  */
 
-#include "CCRakNetUDT.h"
+#include "RakNet/CCRakNetUDT.h"
 
 #if USE_SLIDING_WINDOW_CONGESTION_CONTROL!=1
 
-#include "Rand.h"
-#include "MTUSize.h"
+#include "RakNet/Rand.h"
+#include "RakNet/MTUSize.h"
 #include <stdio.h>
 #include <math.h>
 #include <stdlib.h>
 //#include <memory.h>
-#include "RakAssert.h"
-#include "RakAlloca.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakAlloca.h"
 
 using namespace RakNet;
 

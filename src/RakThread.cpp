@@ -8,11 +8,11 @@
  *
  */
 
-#include "RakThread.h"
-#include "RakAssert.h"
-#include "RakNetDefines.h"
-#include "RakSleep.h"
-#include "RakMemoryOverride.h"
+#include "RakNet/RakThread.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakNetDefines.h"
+#include "RakNet/RakSleep.h"
+#include "RakNet/RakMemoryOverride.h"
 
 using namespace RakNet;
 
@@ -20,7 +20,7 @@ using namespace RakNet;
 
 
 #if   defined(_WIN32)
-	#include "WindowsIncludes.h"
+	#include "RakNet/WindowsIncludes.h"
 	#include <stdio.h>
 	#if !defined(_WIN32_WCE)
 		#include <process.h>

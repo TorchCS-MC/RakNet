@@ -8,22 +8,22 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_FileListTransfer==1 && _RAKNET_SUPPORT_FileOperations==1
 
-#include "FileListTransfer.h"
-#include "DS_HuffmanEncodingTree.h"
-#include "FileListTransferCBInterface.h"
-#include "StringCompressor.h"
-#include "FileList.h"
-#include "DS_Queue.h"
-#include "MessageIdentifiers.h"
-#include "RakNetTypes.h"
-#include "RakPeerInterface.h"
-#include "RakNetStatistics.h"
-#include "IncrementalReadInterface.h"
-#include "RakAssert.h"
-#include "RakAlloca.h"
+#include "RakNet/FileListTransfer.h"
+#include "RakNet/DS_HuffmanEncodingTree.h"
+#include "RakNet/FileListTransferCBInterface.h"
+#include "RakNet/StringCompressor.h"
+#include "RakNet/FileList.h"
+#include "RakNet/DS_Queue.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/RakNetTypes.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/RakNetStatistics.h"
+#include "RakNet/IncrementalReadInterface.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakAlloca.h"
 
 #ifdef _MSC_VER
 #pragma warning( push )

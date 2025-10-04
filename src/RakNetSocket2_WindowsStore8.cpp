@@ -8,7 +8,7 @@
  *
  */
 
-#include "EmptyHeader.h"
+#include "RakNet/EmptyHeader.h"
 
 #ifdef RAKNET_SOCKET_2_INLINE_FUNCTIONS
 
@@ -19,7 +19,7 @@
 
 #include <ppltasks.h>
 #include <collection.h>
-#include "RakString.h"
+#include "RakNet/RakString.h"
 
 using namespace Concurrency;
 using namespace Platform;

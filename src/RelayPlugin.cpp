@@ -8,13 +8,13 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_RelayPlugin==1
 
-#include "RelayPlugin.h"
-#include "MessageIdentifiers.h"
-#include "RakPeerInterface.h"
-#include "BitStream.h"
+#include "RakNet/RelayPlugin.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/RakPeerInterface.h"
+#include "RakNet/BitStream.h"
 
 using namespace RakNet;
 

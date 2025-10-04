@@ -8,14 +8,14 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_CloudClient==1
 
-#include "CloudClient.h"
-#include "GetTime.h"
-#include "MessageIdentifiers.h"
-#include "BitStream.h"
-#include "RakPeerInterface.h"
+#include "RakNet/CloudClient.h"
+#include "RakNet/GetTime.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/RakPeerInterface.h"
 
 using namespace RakNet;
 

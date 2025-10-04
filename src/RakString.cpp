@@ -8,17 +8,17 @@
  *
  */
 
-#include "RakString.h"
-#include "RakAssert.h"
-#include "RakMemoryOverride.h"
-#include "BitStream.h"
+#include "RakNet/RakString.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakMemoryOverride.h"
+#include "RakNet/BitStream.h"
 #include <stdarg.h>
 #include <string.h>
-#include "LinuxStrings.h"
-#include "StringCompressor.h"
-#include "SimpleMutex.h"
+#include "RakNet/LinuxStrings.h"
+#include "RakNet/StringCompressor.h"
+#include "RakNet/SimpleMutex.h"
 #include <stdlib.h>
-#include "Itoa.h"
+#include "RakNet/Itoa.h"
 
 using namespace RakNet;
 
@@ -1561,9 +1561,9 @@ void RakString::UnlockMutex(void)
 }
 
 /*
-#include "RakString.h"
+#include "RakNet/RakString.h"
 #include <string>
-#include "GetTime.h"
+#include "RakNet/GetTime.h"
 
 using namespace RakNet;
 

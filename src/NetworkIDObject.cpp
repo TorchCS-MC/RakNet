@@ -12,10 +12,10 @@
 ///
 
 
-#include "NetworkIDObject.h"
-#include "NetworkIDManager.h"
-#include "RakAssert.h"
-#include "RakAlloca.h"
+#include "RakNet/NetworkIDObject.h"
+#include "RakNet/NetworkIDManager.h"
+#include "RakNet/RakAssert.h"
+#include "RakNet/RakAlloca.h"
 
 using namespace RakNet;
 

@@ -14,7 +14,7 @@
 
 #else
 
-#include "Getche.h"
+#include "RakNet/Getche.h"
 
 char getche()
 {

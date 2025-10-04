@@ -9,8 +9,8 @@
  */
 
 /*
-#include "RakNetSocket.h"
-#include "RakMemoryOverride.h"
+#include "RakNet/RakNetSocket.h"
+#include "RakNet/RakMemoryOverride.h"
 
 using namespace RakNet;
 

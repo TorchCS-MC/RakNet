@@ -12,7 +12,7 @@
 ///
 
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 
 #if LIBCAT_SECURITY==1
 
@@ -23,40 +23,40 @@
 # define CAT_NEUTER_EXPORT
 #endif
 
-#include "cat/src/port/EndianNeutral.cpp"
-#include "cat/src/port/AlignedAlloc.cpp"
-#include "cat/src/time/Clock.cpp"
-#include "cat/src/threads/Mutex.cpp"
-#include "cat/src/threads/Thread.cpp"
-#include "cat/src/threads/WaitableFlag.cpp"
-#include "cat/src/hash/MurmurHash2.cpp"
-#include "cat/src/lang/Strings.cpp"
+#include "RakNet/cat/src/port/EndianNeutral.cpp"
+#include "RakNet/cat/src/port/AlignedAlloc.cpp"
+#include "RakNet/cat/src/time/Clock.cpp"
+#include "RakNet/cat/src/threads/Mutex.cpp"
+#include "RakNet/cat/src/threads/Thread.cpp"
+#include "RakNet/cat/src/threads/WaitableFlag.cpp"
+#include "RakNet/cat/src/hash/MurmurHash2.cpp"
+#include "RakNet/cat/src/lang/Strings.cpp"
 
-#include "cat/src/math/BigRTL.cpp"
-#include "cat/src/math/BigPseudoMersenne.cpp"
-#include "cat/src/math/BigTwistedEdwards.cpp"
+#include "RakNet/cat/src/math/BigRTL.cpp"
+#include "RakNet/cat/src/math/BigPseudoMersenne.cpp"
+#include "RakNet/cat/src/math/BigTwistedEdwards.cpp"
 
-#include "cat/src/crypt/SecureCompare.cpp"
-#include "cat/src/crypt/cookie/CookieJar.cpp"
-#include "cat/src/crypt/hash/HMAC_MD5.cpp"
-#include "cat/src/crypt/privatekey/ChaCha.cpp"
-#include "cat/src/crypt/hash/Skein.cpp"
-#include "cat/src/crypt/hash/Skein256.cpp"
-#include "cat/src/crypt/hash/Skein512.cpp"
-#include "cat/src/crypt/pass/Passwords.cpp"
+#include "RakNet/cat/src/crypt/SecureCompare.cpp"
+#include "RakNet/cat/src/crypt/cookie/CookieJar.cpp"
+#include "RakNet/cat/src/crypt/hash/HMAC_MD5.cpp"
+#include "RakNet/cat/src/crypt/privatekey/ChaCha.cpp"
+#include "RakNet/cat/src/crypt/hash/Skein.cpp"
+#include "RakNet/cat/src/crypt/hash/Skein256.cpp"
+#include "RakNet/cat/src/crypt/hash/Skein512.cpp"
+#include "RakNet/cat/src/crypt/pass/Passwords.cpp"
 
-#include "cat/src/crypt/rand/EntropyWindows.cpp"
-#include "cat/src/crypt/rand/EntropyLinux.cpp"
-#include "cat/src/crypt/rand/EntropyWindowsCE.cpp"
-#include "cat/src/crypt/rand/EntropyGeneric.cpp"
-#include "cat/src/crypt/rand/Fortuna.cpp"
+#include "RakNet/cat/src/crypt/rand/EntropyWindows.cpp"
+#include "RakNet/cat/src/crypt/rand/EntropyLinux.cpp"
+#include "RakNet/cat/src/crypt/rand/EntropyWindowsCE.cpp"
+#include "RakNet/cat/src/crypt/rand/EntropyGeneric.cpp"
+#include "RakNet/cat/src/crypt/rand/Fortuna.cpp"
 
-#include "cat/src/crypt/tunnel/KeyAgreement.cpp"
-#include "cat/src/crypt/tunnel/AuthenticatedEncryption.cpp"
-#include "cat/src/crypt/tunnel/KeyAgreementInitiator.cpp"
-#include "cat/src/crypt/tunnel/KeyAgreementResponder.cpp"
-#include "cat/src/crypt/tunnel/KeyMaker.cpp"
+#include "RakNet/cat/src/crypt/tunnel/KeyAgreement.cpp"
+#include "RakNet/cat/src/crypt/tunnel/AuthenticatedEncryption.cpp"
+#include "RakNet/cat/src/crypt/tunnel/KeyAgreementInitiator.cpp"
+#include "RakNet/cat/src/crypt/tunnel/KeyAgreementResponder.cpp"
+#include "RakNet/cat/src/crypt/tunnel/KeyMaker.cpp"
 
-#include "cat/src/crypt/tunnel/EasyHandshake.cpp"
+#include "RakNet/cat/src/crypt/tunnel/EasyHandshake.cpp"
 
 #endif // LIBCAT_SECURITY

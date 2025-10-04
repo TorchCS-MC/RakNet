@@ -8,11 +8,11 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_HTTPConnection2==1 && _RAKNET_SUPPORT_TCPInterface==1
 
-#include "HTTPConnection2.h"
-#include "TCPInterface.h"
+#include "RakNet/HTTPConnection2.h"
+#include "RakNet/TCPInterface.h"
 
 using namespace RakNet;
 

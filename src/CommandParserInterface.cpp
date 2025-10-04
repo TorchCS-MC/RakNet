@@ -8,10 +8,10 @@
  *
  */
 
-#include "CommandParserInterface.h"
-#include "TransportInterface.h"
+#include "RakNet/CommandParserInterface.h"
+#include "RakNet/TransportInterface.h"
 #include <string.h>
-#include "RakAssert.h"
+#include "RakNet/RakAssert.h"
 #include <stdio.h>
 
 
@@ -27,7 +27,7 @@
 #include <arpa/inet.h>
 #endif
 
-#include "LinuxStrings.h"
+#include "RakNet/LinuxStrings.h"
 
 using namespace RakNet;
 

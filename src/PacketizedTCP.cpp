@@ -8,14 +8,14 @@
  *
  */
 
-#include "NativeFeatureIncludes.h"
+#include "RakNet/NativeFeatureIncludes.h"
 #if _RAKNET_SUPPORT_PacketizedTCP==1 && _RAKNET_SUPPORT_TCPInterface==1
 
-#include "PacketizedTCP.h"
-#include "NativeTypes.h"
-#include "BitStream.h"
-#include "MessageIdentifiers.h"
-#include "RakAlloca.h"
+#include "RakNet/PacketizedTCP.h"
+#include "RakNet/NativeTypes.h"
+#include "RakNet/BitStream.h"
+#include "RakNet/MessageIdentifiers.h"
+#include "RakNet/RakAlloca.h"
 
 using namespace RakNet;
 

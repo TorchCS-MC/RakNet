@@ -1,20 +1,18 @@
 cmake_minimum_required(VERSION 3.15)
-
-project(torchcs-raknet VERSION 4.1.0)
+project(torchcs-raknet VERSION 4.1.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(RAKNET_ENABLE_DLL "Build DLL instead of static library" OFF)
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-if(WIN32)
-    set(RAKNET_SYSTEM_LIBS ws2_32)
-else()
-    set(RAKNET_SYSTEM_LIBS pthread)
-endif()
+option(RAKNET_ENABLE_DLL "Build DLL/shared library instead of static" OFF)
+option(RAKNET_ENABLE_ASAN "Enable Address/UB sanitizers in Debug" OFF)
 
-set(RAKNET_SOURCES
+find_package(Threads REQUIRED)
+
+set(RAKNET_SOURCES_COMMON
     src/Base64Encoder.cpp
     src/BitStream.cpp
     src/CCRakNetSlidingWindow.cpp
@@ -33,7 +31,6 @@ set(RAKNET_SOURCES
     src/DS_Table.cpp
     src/DataCompressor.cpp
     src/DirectoryDeltaTransfer.cpp
-    src/DynDNS.cpp
     src/EmailSender.cpp
     src/EpochTimeToString.cpp
     src/FileList.cpp
@@ -49,7 +46,6 @@ set(RAKNET_SOURCES
     src/HTTPConnection2.cpp
     src/IncrementalReadInterface.cpp
     src/Itoa.cpp
-    src/LinuxStrings.cpp
     src/LocklessTypes.cpp
     src/LogCommandParser.cpp
     src/MessageFilter.cpp
@@ -60,29 +56,14 @@ set(RAKNET_SOURCES
     src/NatTypeDetectionServer.cpp
     src/NetworkIDManager.cpp
     src/NetworkIDObject.cpp
-    src/PS4Includes.cpp
     src/PacketConsoleLogger.cpp
     src/PacketFileLogger.cpp
     src/PacketLogger.cpp
-    src/PacketOutputWindowLogger.cpp
     src/PacketizedTCP.cpp
     src/PluginInterface2.cpp
     src/RPC4Plugin.cpp
-    src/Rackspace.cpp
     src/RakMemoryOverride.cpp
     src/RakNetCommandParser.cpp
-    src/RakNetSocket.cpp
-    src/RakNetSocket2.cpp
-    src/RakNetSocket2_360_720.cpp
-    src/RakNetSocket2_Berkley.cpp
-    src/RakNetSocket2_Berkley_NativeClient.cpp
-    src/RakNetSocket2_NativeClient.cpp
-    src/RakNetSocket2_PS3_PS4.cpp
-    src/RakNetSocket2_PS4.cpp
-    src/RakNetSocket2_Vita.cpp
-    src/RakNetSocket2_WindowsStore8.cpp
-    src/RakNetSocket2_Windows_Linux.cpp
-    src/RakNetSocket2_Windows_Linux_360.cpp
     src/RakNetStatistics.cpp
     src/RakNetTransport2.cpp
     src/RakNetTypes.cpp
@@ -121,13 +102,40 @@ set(RAKNET_SOURCES
     src/VariableDeltaSerializer.cpp
     src/VariableListDeltaTracker.cpp
     src/VariadicSQLParser.cpp
-    src/VitaIncludes.cpp
-    src/WSAStartupSingleton.cpp
-    src/_FindFirst.cpp
-    src/gettimeofday.cpp
 )
 
-if(RAKNET_ENABLE_DLL)
+set(RAKNET_SOURCES_PLATFORM "")
+
+if (WIN32)
+    list(APPEND RAKNET_SOURCES_PLATFORM
+        src/PS4Includes.cpp
+        src/RakNetSocket2.cpp
+        src/RakNetSocket2_360_720.cpp
+        src/RakNetSocket2_NativeClient.cpp
+        src/RakNetSocket2_PS3_PS4.cpp
+        src/RakNetSocket2_PS4.cpp
+        src/RakNetSocket2_Vita.cpp
+        src/RakNetSocket2_WindowsStore8.cpp
+        src/RakNetSocket2_Windows_Linux.cpp
+        src/RakNetSocket2_Windows_Linux_360.cpp
+        src/VitaIncludes.cpp
+        src/WSAStartupSingleton.cpp
+        src/_FindFirst.cpp
+    )
+else()
+    list(APPEND RAKNET_SOURCES_PLATFORM
+        src/LinuxStrings.cpp
+        src/gettimeofday.cpp
+        src/RakNetSocket2.cpp
+        src/RakNetSocket2_Berkley.cpp
+        src/RakNetSocket2_Berkley_NativeClient.cpp
+        src/RakNetSocket2_Windows_Linux.cpp
+    )
+endif()
+
+set(RAKNET_SOURCES ${RAKNET_SOURCES_COMMON} ${RAKNET_SOURCES_PLATFORM})
+
+if (RAKNET_ENABLE_DLL)
     add_library(torchcs_raknet SHARED ${RAKNET_SOURCES})
     target_compile_definitions(torchcs_raknet PRIVATE _RAKNET_DLL)
 else()
@@ -135,13 +143,24 @@ else()
     target_compile_definitions(torchcs_raknet PRIVATE _RAKNET_LIB)
 endif()
 
-add_library(RakNet::RakNet ALIAS torchcs_raknet)
+add_library(torchcs::RakNet ALIAS torchcs_raknet)
 
 target_include_directories(torchcs_raknet PUBLIC include)
 
-if(WIN32)
-    target_compile_definitions(torchcs_raknet PRIVATE WIN32 _CRT_SECURE_NO_DEPRECATE _CRT_NONSTDC_NO_DEPRECATE)
-    target_compile_options(torchcs_raknet PRIVATE /W3 /GR- /GS-)
+if (MSVC)
+    target_compile_definitions(torchcs_raknet PRIVATE WIN32 _CRT_SECURE_NO_DEPRECATE _CRT_NONSTDC_NO_DEPRECATE WIN32_LEAN_AND_MEAN)
+    target_compile_options(torchcs_raknet PRIVATE /W4 /permissive- /Zc:__cplusplus)
+else()
+    target_compile_definitions(torchcs_raknet PRIVATE _GNU_SOURCE _FILE_OFFSET_BITS=64)
+    target_compile_options(torchcs_raknet PRIVATE -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -fno-strict-aliasing)
+    if (RAKNET_ENABLE_ASAN AND CMAKE_BUILD_TYPE STREQUAL "Debug")
+        target_compile_options(torchcs_raknet PRIVATE -fsanitize=address,undefined)
+        target_link_options(torchcs_raknet PRIVATE -fsanitize=address,undefined)
+    endif()
 endif()
 
-target_link_libraries(torchcs_raknet PRIVATE ${RAKNET_SYSTEM_LIBS})
+if (WIN32)
+    target_link_libraries(torchcs_raknet PRIVATE ws2_32 bcrypt iphlpapi)
+else()
+    target_link_libraries(torchcs_raknet PRIVATE Threads::Threads)
+endif()
