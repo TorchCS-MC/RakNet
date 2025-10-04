@@ -1,12 +1,11 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.15)
 
-project(torchcs-raknet VERSION 4.1.0 LANGUAGES C CXX)
+project(torchcs-raknet VERSION 4.1.0)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-option(RAKNET_ENABLE_SAMPLES "Build example programs" OFF)
 option(RAKNET_ENABLE_DLL "Build DLL instead of static library" OFF)
 
 set(RAKNET_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
@@ -139,19 +138,13 @@ else()
     target_compile_definitions(torchcs_raknet PRIVATE _RAKNET_LIB)
 endif()
 
+add_library(RakNet::RakNet ALIAS torchcs_raknet)
+
 target_include_directories(torchcs_raknet PUBLIC ${RAKNET_INCLUDE_DIR})
 
 if(WIN32)
-    target_compile_definitions(torchcs_raknet PRIVATE
-        WIN32
-        _CRT_SECURE_NO_DEPRECATE
-        _CRT_NONSTDC_NO_DEPRECATE
-    )
+    target_compile_definitions(torchcs_raknet PRIVATE WIN32 _CRT_SECURE_NO_DEPRECATE _CRT_NONSTDC_NO_DEPRECATE)
     target_compile_options(torchcs_raknet PRIVATE /W3 /GR- /GS-)
 endif()
 
 target_link_libraries(torchcs_raknet PRIVATE ${RAKNET_SYSTEM_LIBS})
-
-if(RAKNET_ENABLE_SAMPLES AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/samples/CMakeLists.txt")
-    add_subdirectory(samples)
-endif()
