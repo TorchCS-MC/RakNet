@@ -139,9 +139,7 @@ else()
     target_compile_definitions(torchcs_raknet PRIVATE _RAKNET_LIB)
 endif()
 
-target_include_directories(torchcs_raknet PUBLIC
-    ${RAKNET_INCLUDE_DIR}
-)
+target_include_directories(torchcs_raknet PUBLIC ${RAKNET_INCLUDE_DIR})
 
 if(WIN32)
     target_compile_definitions(torchcs_raknet PRIVATE
