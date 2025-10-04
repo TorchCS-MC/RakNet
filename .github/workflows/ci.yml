@@ -60,7 +60,10 @@ jobs:
             -DCMAKE_C_COMPILER=$CC \
             -DCMAKE_CXX_COMPILER=$CXX \
             -DCMAKE_INSTALL_PREFIX=$PREFIX \
-            -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi" \
+            -DLLVM_ENABLE_RUNTIMES="libunwind;libcxxabi;libcxx" \
+            -DLIBUNWIND_ENABLE_SHARED=ON \
+            -DLIBUNWIND_ENABLE_STATIC=ON \
+            -DLIBCXXABI_USE_LLVM_UNWINDER=ON \
             -DLIBCXX_ENABLE_SHARED=ON \
             -DLIBCXX_ENABLE_STATIC=ON \
             -DLIBCXXABI_ENABLE_SHARED=ON \
@@ -72,6 +75,7 @@ jobs:
           cmake --build build-libcxx --target install
           echo "LIBCXX_PREFIX=$PREFIX" >> $GITHUB_ENV
           echo "LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
+
 
       - name: Set up MSVC (Windows)
         if: runner.os == 'Windows'
