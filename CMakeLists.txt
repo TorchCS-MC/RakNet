@@ -1,15 +1,16 @@
 cmake_minimum_required(VERSION 3.20)
 project(torchcs-raknet VERSION 4.1.0 LANGUAGES CXX)
 
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
 option(BUILD_SHARED_LIBS "Build shared instead of static library" OFF)
 option(RAKNET_ENABLE_ASAN "Enable Address/UB sanitizers (Debug)" OFF)
 
-find_package(Threads REQUIRED)
-
 add_library(torchcs_raknet)
-
-target_compile_features(torchcs_raknet PUBLIC cxx_std_20)
-set_target_properties(torchcs_raknet PROPERTIES POSITION_INDEPENDENT_CODE ON)
+find_package(Threads REQUIRED)
+target_link_libraries(torchcs_raknet PRIVATE Threads::Threads)
 
 target_sources(torchcs_raknet PRIVATE
   src/Base64Encoder.cpp 
@@ -98,7 +99,8 @@ target_sources(torchcs_raknet PRIVATE
   src/UDPProxyClient.cpp 
   src/UDPProxyCoordinator.cpp 
   src/UDPProxyServer.cpp
-  src/VariableDeltaSerializer.cpp src/VariableListDeltaTracker.cpp
+  src/VariableDeltaSerializer.cpp 
+  src/VariableListDeltaTracker.cpp
   src/VariadicSQLParser.cpp
 )
 
@@ -129,33 +131,14 @@ else()
   )
 endif()
 
-set(_cand1 "${CMAKE_CURRENT_SOURCE_DIR}/include")
-set(_cand2 "${CMAKE_CURRENT_SOURCE_DIR}/RakNet/include")
-set(RAKNET_INCLUDE_BASE "${_cand1}")
-if(NOT EXISTS "${RAKNET_INCLUDE_BASE}/RakNet/BitStream.h" AND EXISTS "${_cand2}/RakNet/BitStream.h")
-  set(RAKNET_INCLUDE_BASE "${_cand2}")
-endif()
+target_include_directories(torchcs_raknet PUBLIC include)
 
-target_include_directories(torchcs_raknet
-  PUBLIC
-    $<BUILD_INTERFACE:${RAKNET_INCLUDE_BASE}>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
-    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/DependentExtensions>
-    $<INSTALL_INTERFACE:include>
-)
-
-if(MSVC)
-  target_compile_definitions(torchcs_raknet PRIVATE WIN32 _CRT_SECURE_NO_DEPRECATE _CRT_NONSTDC_NO_DEPRECATE WIN32_LEAN_AND_MEAN)
-  target_compile_options(torchcs_raknet PRIVATE /W4 /permissive- /Zc:__cplusplus)
-  target_link_libraries(torchcs_raknet PRIVATE ws2_32 bcrypt iphlpapi)
-else()
-  target_compile_definitions(torchcs_raknet PRIVATE _GNU_SOURCE _FILE_OFFSET_BITS=64)
-  target_compile_options(torchcs_raknet PRIVATE -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wshadow -Wnon-virtual-dtor -fno-strict-aliasing)
-  target_link_libraries(torchcs_raknet PRIVATE Threads::Threads)
-  if(RAKNET_ENABLE_ASAN AND CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(torchcs_raknet PRIVATE -fsanitize=address,undefined)
-    target_link_options(torchcs_raknet PRIVATE -fsanitize=address,undefined)
-  endif()
+if (MSVC)
+    target_link_options(torchcs_raknet PRIVATE /DEBUG /INCREMENTAL:NO /OPT:REF /OPT:ICF)
+    target_compile_options(torchcs_raknet PRIVATE /Zi /DNDEBUG /Gy)
+elseif (UNIX)
+    target_link_options(torchcs_raknet PRIVATE -Wl,--no-undefined,--exclude-libs,ALL)
+    target_compile_options(torchcs_raknet PRIVATE -O2 -DNDEBUG -g -fvisibility=hidden)
 endif()
 
 add_library(torchcs::RakNet ALIAS torchcs_raknet)
