@@ -27,5 +27,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE torchcs::RakNet)
 - Optional static or shared library build  
 
 ## License
-
-This fork is based on the original RakNet implementation, licensed under the **BSD-3-Clause License**.
+[LICENSE](LICENSE)
