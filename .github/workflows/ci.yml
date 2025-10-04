@@ -34,7 +34,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y git ninja-build cmake python3 pkg-config \
-                                  build-essential curl
+          build-essential curl
 
       - name: Install LLVM toolchain (Linux)
         if: runner.os == 'Linux'
@@ -50,25 +50,25 @@ jobs:
       - name: Build & install libc++ from source (Linux)
         if: runner.os == 'Linux'
         env:
-          PREFIX: $HOME/libcxx
-          LLVM_VER: llvmorg-18.1.8
+            LLVM_VER: llvmorg-18.1.8
         run: |
-          set -eux
-          git clone --depth 1 --branch $LLVM_VER https://github.com/llvm/llvm-project.git
-          cmake -S llvm-project/runtimes -B build-libcxx -G Ninja \
+            set -eux
+            PREFIX="$HOME/libcxx"   # <-- hier definieren (nicht in env:)
+            git clone --depth 1 --branch "$LLVM_VER" https://github.com/llvm/llvm-project.git
+            cmake -S llvm-project/runtimes -B build-libcxx -G Ninja \
             -DCMAKE_BUILD_TYPE=Release \
-            -DCMAKE_C_COMPILER=$CC \
-            -DCMAKE_CXX_COMPILER=$CXX \
-            -DCMAKE_INSTALL_PREFIX=$PREFIX \
+            -DCMAKE_C_COMPILER="$CC" \
+            -DCMAKE_CXX_COMPILER="$CXX" \
+            -DCMAKE_INSTALL_PREFIX="$PREFIX" \
             -DLLVM_ENABLE_RUNTIMES="libunwind;libcxxabi;libcxx" \
             -DLIBUNWIND_ENABLE_SHARED=ON -DLIBUNWIND_ENABLE_STATIC=ON \
             -DLIBCXXABI_USE_LLVM_UNWINDER=ON \
             -DLIBCXX_ENABLE_SHARED=ON -DLIBCXX_ENABLE_STATIC=ON \
             -DLIBCXXABI_ENABLE_SHARED=ON -DLIBCXXABI_ENABLE_STATIC=ON \
             -DLIBCXX_ENABLE_EXPERIMENTAL=OFF -DLIBCXX_ENABLE_FILESYSTEM=ON
-          cmake --build build-libcxx --target install
-          echo "LIBCXX_PREFIX=$PREFIX" >> $GITHUB_ENV
-          echo "LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
+            cmake --build build-libcxx --target install
+            echo "LIBCXX_PREFIX=$PREFIX" >> "$GITHUB_ENV"
+            echo "LD_LIBRARY_PATH=$PREFIX/lib:${LD_LIBRARY_PATH:-}" >> "$GITHUB_ENV"
 
 
       - name: Set up MSVC (Windows)
@@ -81,18 +81,18 @@ jobs:
 
       - name: Configure
         run: >
-          cmake
-          -S .
-          -B build/${{ matrix.build_type }}
-          -G Ninja
-          -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
-          ${{ runner.os == 'Linux' && format('-DCMAKE_C_COMPILER={0}', env.CC) || '' }}
-          ${{ runner.os == 'Linux' && format('-DCMAKE_CXX_COMPILER={0}', env.CXX) || '' }}
-          ${{ runner.os == 'Linux' && '-DCMAKE_CXX_FLAGS=-stdlib=libc++' || '' }}
-          ${{ runner.os == 'Linux' && '-DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -fuse-ld=lld' || '' }}
-          ${{ runner.os == 'Linux' && '-DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++ -fuse-ld=lld' || '' }}
-          ${{ runner.os == 'Linux' && format('-DCMAKE_PREFIX_PATH={0}', env.LIBCXX_PREFIX) || '' }}
-          ${{ runner.os == 'Linux' && format('-DCMAKE_INSTALL_RPATH={0}/lib', env.LIBCXX_PREFIX) || '' }}
+            cmake
+            -S .
+            -B build/${{ matrix.build_type }}
+            -G Ninja
+            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+            ${{ runner.os == 'Linux' && format('-DCMAKE_C_COMPILER={0}', env.CC) || '' }}
+            ${{ runner.os == 'Linux' && format('-DCMAKE_CXX_COMPILER={0}', env.CXX) || '' }}
+            ${{ runner.os == 'Linux' && '-DCMAKE_CXX_FLAGS=-stdlib=libc++' || '' }}
+            ${{ runner.os == 'Linux' && '-DCMAKE_EXE_LINKER_FLAGS=-stdlib=libc++ -fuse-ld=lld' || '' }}
+            ${{ runner.os == 'Linux' && '-DCMAKE_SHARED_LINKER_FLAGS=-stdlib=libc++ -fuse-ld=lld' || '' }}
+            ${{ runner.os == 'Linux' && format('-DCMAKE_PREFIX_PATH={0}', env.LIBCXX_PREFIX) || '' }}
+            ${{ runner.os == 'Linux' && format('-DCMAKE_INSTALL_RPATH={0}/lib', env.LIBCXX_PREFIX) || '' }}
 
       - name: Build
         run: cmake --build build/${{ matrix.build_type }} --parallel
