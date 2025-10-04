@@ -121,7 +121,7 @@ target_sources(torchcs_raknet PRIVATE
   src/RakNetSocket2_Windows_Linux.cpp
 )
 
-target_include_directories(torchcs_raknet PUBLIC include)
+target_include_directories(torchcs_raknet PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if (MSVC)
     target_link_options(torchcs_raknet PRIVATE /DEBUG /INCREMENTAL:NO /OPT:REF /OPT:ICF)
