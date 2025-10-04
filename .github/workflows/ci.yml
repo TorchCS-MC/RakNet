@@ -50,7 +50,7 @@ jobs:
       - name: Build & install libc++ from source (Linux)
         if: runner.os == 'Linux'
         env:
-          PREFIX: /usr/local/libcxx 
+          PREFIX: $HOME/libcxx
           LLVM_VER: llvmorg-18.1.8
         run: |
           set -eux
@@ -61,17 +61,11 @@ jobs:
             -DCMAKE_CXX_COMPILER=$CXX \
             -DCMAKE_INSTALL_PREFIX=$PREFIX \
             -DLLVM_ENABLE_RUNTIMES="libunwind;libcxxabi;libcxx" \
-            -DLIBUNWIND_ENABLE_SHARED=ON \
-            -DLIBUNWIND_ENABLE_STATIC=ON \
+            -DLIBUNWIND_ENABLE_SHARED=ON -DLIBUNWIND_ENABLE_STATIC=ON \
             -DLIBCXXABI_USE_LLVM_UNWINDER=ON \
-            -DLIBCXX_ENABLE_SHARED=ON \
-            -DLIBCXX_ENABLE_STATIC=ON \
-            -DLIBCXXABI_ENABLE_SHARED=ON \
-            -DLIBCXXABI_ENABLE_STATIC=ON \
-            -DLIBCXX_ENABLE_EXPERIMENTAL=OFF \
-            -DLIBCXX_ENABLE_FILESYSTEM=ON \
-            -DLIBCXXABI_USE_COMPILER_RT=OFF \
-            -DLIBCXX_USE_COMPILER_RT=OFF
+            -DLIBCXX_ENABLE_SHARED=ON -DLIBCXX_ENABLE_STATIC=ON \
+            -DLIBCXXABI_ENABLE_SHARED=ON -DLIBCXXABI_ENABLE_STATIC=ON \
+            -DLIBCXX_ENABLE_EXPERIMENTAL=OFF -DLIBCXX_ENABLE_FILESYSTEM=ON
           cmake --build build-libcxx --target install
           echo "LIBCXX_PREFIX=$PREFIX" >> $GITHUB_ENV
           echo "LD_LIBRARY_PATH=$PREFIX/lib:$LD_LIBRARY_PATH" >> $GITHUB_ENV
