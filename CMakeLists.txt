@@ -124,8 +124,11 @@ target_sources(torchcs_raknet PRIVATE
 target_include_directories(torchcs_raknet PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if (MSVC)
+    target_link_libraries(torchcs_raknet PUBLIC ws2_32)
     target_link_options(torchcs_raknet PRIVATE /DEBUG /INCREMENTAL:NO /OPT:REF /OPT:ICF)
     target_compile_options(torchcs_raknet PRIVATE /Zi /DNDEBUG /Gy)
+    target_compile_definitions(torchcs_raknet PUBLIC WIN32_LEAN_AND_MEAN NOMINMAX _WINSOCK_DEPRECATED_NO_WARNINGS)
+
 elseif (UNIX)
     target_link_options(torchcs_raknet PRIVATE -Wl,--no-undefined,--exclude-libs,ALL)
     target_compile_options(torchcs_raknet PRIVATE -O2 -DNDEBUG -g -fvisibility=hidden)
